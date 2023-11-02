@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({
 const {sequelize, models} = require("./app/models");
 const roomRoutes = require("./app/routes/room.route");
 const bookingRoutes = require("./app/routes/booking.route");
+const emailRoutes = require("./app/routes/email.route");
 
 sequelize.sync().then(() => {
     console.log("Synced DB");
@@ -30,6 +31,7 @@ app.get("/", (req, res) => {
 
 app.use("/rooms", roomRoutes);
 app.use("/book", bookingRoutes);
+app.use("/email", emailRoutes);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

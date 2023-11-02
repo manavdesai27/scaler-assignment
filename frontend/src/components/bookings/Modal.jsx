@@ -56,7 +56,7 @@ export default function TransitionsModal({ modalOpen, setModalOpen, booking }) {
             }
         }).then((res) => {
             if (res.data.available === true) {
-                axios.put(`${import.meta.env.VITE_BACKEND_URL}/${booking.id}`, {
+                axios.put(`${import.meta.env.VITE_BACKEND_URL}/book/${booking.id}`, {
                     email,
                     checkIn: checkInDate,
                     checkOut: checkOutDate,
@@ -68,6 +68,14 @@ export default function TransitionsModal({ modalOpen, setModalOpen, booking }) {
                     setToastSeverity('success');
                     setToastOpen(true);
                     window.location.reload();
+                    axios.post(`${import.meta.env.VITE_BACKEND_URL}/email/`, {
+                        to: email,
+                        message: res
+                    }).then((res) => {
+                        console.log(res);
+                    }).catch((error) => {
+                        console.log(error);
+                    })
                 }).catch((err) => {
                     console.log(err);
                     setToastMessage(`Room editing failed: ${err.message}`);

@@ -57,6 +57,14 @@ export default function TransitionsModal({ modalOpen, setModalOpen, room, checkI
                     setToastSeverity('success');
                     setToastOpen(true);
                     window.location.reload();
+                    axios.post(`${import.meta.env.VITE_BACKEND_URL}/email/`, {
+                        to: email,
+                        message: res
+                    }).then((res) => {
+                        console.log(res);
+                    }).catch((error) => {
+                        console.log(error);
+                    })
                 }).catch(err => {
                     console.log(err);
                     setToastMessage(`Room booking failed: ${err.message}`);
