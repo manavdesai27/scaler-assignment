@@ -20,6 +20,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import TransitionsModal from '../Modal';
 import DeleteModal from '../DeleteModal';
 import Loader from '../../loader/Loader';
+import dayjs from 'dayjs';
 
 const BookingDashboard = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -74,6 +75,10 @@ const BookingDashboard = () => {
   useEffect(() => {
     filterData();
   }, [roomNum, roomType, checkInDate, checkOutDate])
+
+  const isDisabled = (checkIn) => {
+    return dayjs(new Date(checkIn)).diff(dayjs(), "hours") <= 0;
+  }
 
   const handleDelete = (booking) => {
     setId(1);
@@ -164,19 +169,21 @@ const BookingDashboard = () => {
                     <TableCell>
                       <Button
                         variant="outlined"
-                        color="error"
-                        onClick={() => handleDelete(booking)}
+                        color="info"
+                        disabled = {isDisabled(booking.checkout)}
+                        onClick={() => handleEdit(booking)}
                       >
-                        Delete
+                        Edit
                       </Button>
                     </TableCell>
                     <TableCell>
                       <Button
                         variant="outlined"
-                        color="info"
-                        onClick={() => handleEdit(booking)}
+                        color="error"
+                        disabled = {isDisabled(booking.checkIn)}
+                        onClick={() => handleDelete(booking)}
                       >
-                        Edit
+                        Delete
                       </Button>
                     </TableCell>
                   </TableRow>

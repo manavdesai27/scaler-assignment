@@ -41,7 +41,10 @@ exports.findAll = (req, res) => {
                 attributes: ['name', 'price']
             }],
             attributes: ['id', 'roomNumber']
-        }]
+        }],
+        order: [
+            ['checkIn', 'DESC']
+        ]
     })
         .then(bookings => {
             res.status(200).send(bookings);
@@ -169,6 +172,9 @@ exports.findEmptyRooms = (req, res) => {
                         model: models.RoomType,
                         attributes: ['price', 'name']
                     }
+                ],
+                order: [
+                    ["roomNumber", "ASC"]
                 ]
             })
                 .then((rooms) => {
