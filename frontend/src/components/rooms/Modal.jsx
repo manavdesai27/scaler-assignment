@@ -27,16 +27,16 @@ export default function TransitionsModal({ modalOpen, setModalOpen, room, checkI
     const [toastMessage, setToastMessage] = React.useState('');
     const [toastSeverity, setToastSeverity] = React.useState('success');
     const [email, setEmail] = useState('');
-    
+
     const calculatePrice = (price) => {
         const hours = checkOutDate.diff(checkInDate, 'hours');
         return hours * price;
     }
-    
+
     const handleClose = () => setModalOpen(false);
 
     const handleSubmit = (e) => {
-        axios.get(`${process.env.REACT_BACKEND_URL}/book/isEmpty/`, {
+        axios.get(`${import.meta.env.VITE_BACKEND_URL}/book/isEmpty/`, {
             params: {
                 startDate: checkInDate.toISOString().split('T')[0],
                 endDate: checkOutDate.toISOString().split('T')[0],
@@ -44,7 +44,7 @@ export default function TransitionsModal({ modalOpen, setModalOpen, room, checkI
             }
         }).then((res) => {
             if (res.data.available === true) {
-                axios.post(`${process.env.REACT_BACKEND_URL}/book/`, {
+                axios.post(`${import.meta.env.VITE_BACKEND_URL}/book/`, {
                     userEmail: email,
                     checkIn: checkInDate.toISOString().split('T')[0],
                     checkOut: checkOutDate.toISOString().split('T')[0],
@@ -126,7 +126,7 @@ export default function TransitionsModal({ modalOpen, setModalOpen, room, checkI
                     </Box>
                 </Fade>
             </Modal>
-            {toastOpen && <Toast open={toastOpen} setOpen={setToastOpen} message={toastMessage} severity={toastSeverity}/>}
+            {toastOpen && <Toast open={toastOpen} setOpen={setToastOpen} message={toastMessage} severity={toastSeverity} />}
         </div>
     );
 }
