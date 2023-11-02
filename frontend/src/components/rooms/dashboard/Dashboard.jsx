@@ -27,7 +27,7 @@ const RoomDashboard = () => {
             return;
         }
 
-        axios.get('http://localhost:8080/book/available/',
+        axios.get(`${process.env.REACT_BACKEND_URL}/book/available/`,
             {
                 params: {
                     startDate: checkInDate,

@@ -53,18 +53,18 @@ const BookingDashboard = () => {
   }
 
   useEffect(() => {
-    axios.get('http://localhost:8080/book/').then((res) => {
+    axios.get(`${process.env.REACT_BACKEND_URL}/book/`).then((res) => {
       setBookings(res.data)
       setFilteredBookings(res.data);
     }).catch(err => {
       console.log(err);
     })
 
-    axios.get('http://localhost:8080/rooms/types/').then((res) => {
+    axios.get(`${process.env.REACT_BACKEND_URL}/rooms/types/`).then((res) => {
       setRoomTypes(res.data.map(el => el.name));
     })
 
-    axios.get('http://localhost:8080/rooms/rooms/').then((res) => {
+    axios.get(`${process.env.REACT_BACKEND_URL}/rooms/rooms/`).then((res) => {
       setRooms(res.data.map(el => el.roomNumber));
     })
   }, []);

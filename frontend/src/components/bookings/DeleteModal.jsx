@@ -54,7 +54,7 @@ export default function DeleteModal({ modalOpen, setModalOpen, booking }) {
             setModalOpen(false);
             return;
         }
-        axios.delete(`http://localhost:8080/book/${id}`)
+        axios.delete(`${process.env.REACT_BACKEND_URL}/book/${id}`)
             .then((res) => {
                 window.location.reload();
                 setToastMessage('Room deleted successfully');

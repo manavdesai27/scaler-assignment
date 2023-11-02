@@ -36,7 +36,7 @@ export default function TransitionsModal({ modalOpen, setModalOpen, room, checkI
     const handleClose = () => setModalOpen(false);
 
     const handleSubmit = (e) => {
-        axios.get('http://localhost:8080/book/isEmpty/', {
+        axios.get(`${process.env.REACT_BACKEND_URL}/book/isEmpty/`, {
             params: {
                 startDate: checkInDate.toISOString().split('T')[0],
                 endDate: checkOutDate.toISOString().split('T')[0],
@@ -44,7 +44,7 @@ export default function TransitionsModal({ modalOpen, setModalOpen, room, checkI
             }
         }).then((res) => {
             if (res.data.available === true) {
-                axios.post('http://localhost:8080/book/', {
+                axios.post(`${process.env.REACT_BACKEND_URL}/book/`, {
                     userEmail: email,
                     checkIn: checkInDate.toISOString().split('T')[0],
                     checkOut: checkOutDate.toISOString().split('T')[0],
